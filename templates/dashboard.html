@@ -1,1 +1,131 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IAM Dashboard</title>
+<style>
+    body {
+        margin: 0;
+        background: #020617;
+        font-family: "Segoe UI", sans-serif;
+        color: #e5e7eb;
+    }
+    .header {
+        padding: 20px 30px;
+        border-bottom: 1px solid #1f2937;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .header h2 {
+        color: #38bdf8;
+        margin: 0;
+    }
+    .header a {
+        color: #f87171;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .container {
+        padding: 30px;
+    }
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .card {
+        background: #020617;
+        border: 1px solid #1f2937;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .card h4 {
+        margin: 0;
+        font-size: 14px;
+        color: #9ca3af;
+    }
+    .card p {
+        margin-top: 8px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .permissions {
+        background: #020617;
+        border: 1px solid #1f2937;
+        border-radius: 10px;
+        padding: 25px;
+    }
+    .permissions h3 {
+        margin-top: 0;
+        color: #38bdf8;
+    }
+    .perm-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .perm {
+        background: #0f172a;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 13px;
+        border: 1px solid #1f2937;
+    }
+    .admin-link {
+        margin-top: 25px;
+        display: inline-block;
+        background: #38bdf8;
+        color: #020617;
+        padding: 10px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h2>IAM Dashboard</h2>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="container">
+
+    <div class="stats">
+        <div class="card">
+            <h4>User Role</h4>
+            <p>{{ role }}</p>
+        </div>
+        <div class="card">
+            <h4>Permissions Assigned</h4>
+            <p>{{ permissions|length }}</p>
+        </div>
+        <div class="card">
+            <h4>Access Model</h4>
+            <p>RBAC</p>
+        </div>
+    </div>
+
+    <div class="permissions">
+        <h3>Permission Matrix</h3>
+        <div class="perm-list">
+            {% for p in permissions %}
+                <div class="perm">{{ p }}</div>
+            {% endfor %}
+        </div>
+
+        {% if "MANAGE_USERS" in permissions %}
+            <a href="/admin" class="admin-link">Go to Admin Panel</a>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>
